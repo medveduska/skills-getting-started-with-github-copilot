@@ -5,14 +5,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const messageDiv = document.getElementById("message");
   const activityCardTemplate = document.getElementById("activity-card-template");
   const initialActivityOption = '<option value="">-- Select an activity --</option>';
+  let messageHideTimeoutId = null;
 
   function showMessage(message, type) {
     messageDiv.textContent = message;
     messageDiv.className = type;
     messageDiv.classList.remove("hidden");
 
-    setTimeout(() => {
+    if (messageHideTimeoutId !== null) {
+      clearTimeout(messageHideTimeoutId);
+    }
+
+    messageHideTimeoutId = setTimeout(() => {
       messageDiv.classList.add("hidden");
+      messageHideTimeoutId = null;
     }, 5000);
   }
 
